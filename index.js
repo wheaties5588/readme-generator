@@ -24,6 +24,26 @@ inquirer
             name: "usage"
         },
         {
+            type: "input",
+            message: "Enter contribution guidelines for your project:",
+            name: "contribution"
+        },
+        {
+            type: "input",
+            message: "Enter test information for your project:",
+            name: "testing"
+        },
+        {
+            type: "input",
+            message: "Enter your GitHub Username:",
+            name: "github"
+        },
+        {
+            type: "input",
+            message: "Enter your email address:",
+            name: "email"
+        },
+        {
             type: "list",
             message: "Which license does this project fall under?",
             name: "license",
@@ -37,7 +57,7 @@ inquirer
                 "Eclipse Public License 1.0",
                 "Apache License, Version 2.0"
             ]
-        },
+        }
     ])
     .then((res) => {
         console.log("Creating README file...");
@@ -59,7 +79,14 @@ function createREADMEFile(input) {
     const installHead = "## Installation";
     let readmeUsage;
     const usageHead = "## Usage";
-    
+    let readmeContribution;
+    const contributionHead = "## Contribution";
+    let readmeTest;
+    const testingHead = "## Tests";
+    let readmeLicence = input.license;
+    const licenseHead = "## License";
+    let readmeQuestions;
+    const questionsHead = "## Questions";
     let completeREADME = [];
     
     // Adding Title
@@ -69,6 +96,11 @@ function createREADMEFile(input) {
         readmeTitle = `# ${input.title}`;
     }
     completeREADME.push(readmeTitle);
+    
+    
+    //Add in license badge here!!
+    let badge = `![](https://img.shields.io/badge/license-${readmeLicence.replace(/ /g, "%20")}-blue?style=flat-square)`;
+    completeREADME.push(badge);
     
     
     // Adding description
@@ -81,7 +113,7 @@ function createREADMEFile(input) {
     
     
     //Adding Table of Contents
-    tableOfContents = `${tocHead}\n* [Installation](#installation)\n* [Usage](#usage)\n* [Credits](#credits)\n* [License](#license)\n`;
+    tableOfContents = `${tocHead}\n* [Installation](#installation)\n* [Usage](#usage)\n* [Contribution](#contribution)\n* [Tests](#tests)\n* [License](#license)\n* [Questions](#questions)\n`;
     completeREADME.push(tableOfContents);
     
     
@@ -104,8 +136,35 @@ function createREADMEFile(input) {
         readmeUsage = `\n${usageHead}\n${input.usage}`;
     }
     completeREADME.push(readmeUsage);
-
-
+    
+    
+    //Adding Contributing
+    if (input.contribution == '') {
+        readmeContribution = `\n${contributionHead}\n Enter project contriburtion information here.`;
+    } else {
+        readmeContribution = `\n${contributionHead}\n${input.contribution}`;
+    }
+    completeREADME.push(readmeContribution);
+    
+    
+    //Adding Tests
+    if (input.testing == '') {
+        readmeTest = `\n${testingHead}\n Enter project testing information here.`;
+    } else {
+        readmeTest = `\n${testingHead}\n${input.testing}`;
+    }
+    completeREADME.push(readmeTest);
+    
+    
+    //License info
+    readmeLicence = `\n${licenseHead}\nThis project is convered under the ${input.license}.`;
+    completeREADME.push(readmeLicence);
+    
+    
+    //Questions section with github link
+    readmeQuestions = `\n${questionsHead}\nFor questions about this project, please see my GitHub at [${input.github}](https://github.com/${input.github}), or reach out by email at ${input.email}.`;
+    completeREADME.push(readmeQuestions);
+    
      
     
     //Joining the created README Array with a newline separator
@@ -113,7 +172,7 @@ function createREADMEFile(input) {
         
     
     //Creating the README
-    fs.writeFile("README-test.md", README, (err) => {
+    fs.writeFile("README.md", README, (err) => {
         if (err) {
             throw err;
         } else {
