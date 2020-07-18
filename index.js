@@ -165,18 +165,17 @@ function createREADMEFile(input) {
     readmeQuestions = `\n${questionsHead}\nFor questions about this project, please see my GitHub at [${input.github}](https://github.com/${input.github}), or reach out by email at ${input.email}.`;
     completeREADME.push(readmeQuestions);
     
-     
     
     //Joining the created README Array with a newline separator
     const README = completeREADME.join('\n');
         
     
     //Creating the README
-    fs.writeFile("README.md", README, (err) => {
+    fs.writeFile("./example/README-example.md", README, (err) => {
         if (err) {
             throw err;
         } else {
             console.log("README file successfully created!");
         }
-    })
+    });
 }
