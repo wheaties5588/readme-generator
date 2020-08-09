@@ -14,7 +14,8 @@ CLI application that uses the inquirer npm package to prompt questions to the us
 3. Run npm install to install dependencies (inquirer, fs)
 
 ## Usage
-To begin the question prompts, in the driectory containing this project, from the command line run node index.js. Answer all of the following questions, when complete the README.md file will be generated in the current directory.
+To begin the question prompts, in the driectory containing this project, from the command line run node index.js. Answer all of the following questions, when complete the README.md file will be generated in the current directory.  
+How-to video: https://github.com/wheaties5588/readme-generator/blob/master/example/readme-generator-video.mp4
 
 ## License
 This project is convered under the MIT License.
